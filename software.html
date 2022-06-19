@@ -1,0 +1,162 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Waudby Group | Software</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">The Waudby Group</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html"><i class="icon solid fa-home"></i> Home</a></li>
+											<li><a href="index.html#news"><i class="icon solid fa-newspaper"></i> News</a></li>
+											<li><a href="research.html"><i class="icon solid fa-flask"></i> Research</a></li>
+											<li><a href="teaching.html"><i class="icon solid fa-person-chalkboard"></i> Teaching</a></li>
+											<li><a href="publications.html"><i class="icon solid fa-book-open"></i> Publications</a></li>
+											<li><a href="software.html"><i class="icon solid fa-code"></i> Software</a></li>
+											<li><a href="facilities.html"><i class="icon solid fa-magnet"></i> Facilities</a></li>
+											<li><a href="team.html"><i class="icon solid fa-people-group"></i> Team</a></li>
+											<li><a href="contact.html"><i class="icon solid fa-envelope"></i> Contact</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Software</h2>
+							<ul class="actions special">
+								<li><a href="#TITAN" class="button">NMR TITAN</a></li>
+								<li><a href="#pp" class="button">Pulse programs</a></li>
+								<li><a href="#NMRTools" class="button">NMRTools.jl</a></li>
+								<!-- <li><a href="#other" class="button">Other</a></li> -->
+							</ul>
+						</header>
+
+						<section id="news" class="wrapper alt style5">
+							<section class="spotlight" id="TITAN">
+								<div class="image">
+									<img src="images/titan.png" alt="" />
+								</div>
+								<div class="content">
+									<h2>NMR TITAN</h2>
+									<p>
+										NMR TITAN is an easy-to-use software package for the two-dimensional lineshape analysis of titration
+										experiments. By performing a theoretically rigorous analysis of chemical exchange in 2D experiments,
+										TITAN provides many advantages over other analysis methods, eliminating a number of systematic
+										errors, effectively resolving overlapping peaks, and allowing data to be fitted to complex binding
+										models such as dimerisation, induced fit or conformational selection.
+									</p>
+									<p>
+										The software is freely available for academic use.
+									</p>
+									<ul class="actions stacked">
+										<li><a href="https://www.nmr-titan.com" class="button fit primary">Learn More</a></li>
+										<!-- <li><a href="#" class="button fit">Learn More</a></li> -->
+									</ul>
+								</div>
+							</section>
+
+							<section class="spotlight" id="pp">
+								<div class="image">
+									<img src="images/pp.png" alt="" />
+								</div>
+								<div class="content">
+									<h2>Pulse programs</h2>
+									<p>
+										We maintain a library of Bruker-format pulse sequences on GitHub, which provides convenient synchronisation
+										across multiple spectrometers. Pulse sequences for all published experiments are deposited here, while
+										other sequences may be under development and should be used at your own risk.
+									</p>
+									<ul class="actions stacked">
+										<li><a href="https://www.github.com/chriswaudby/pp" class="button fit primary icon brands fa-github">View on GitHub</a></li>
+										<!-- <li><a href="#" class="button fit">Learn More</a></li> -->
+									</ul>
+								</div>
+							</section>
+
+							<section class="spotlight" id="NMRTools">
+								<div class="image">
+									<img src="images/nmrtools.png" alt="" />
+								</div>
+								<div class="content">
+									<h2>NMRTools.jl</h2>
+									<p>
+										NMRTools.jl is a simple library under development for the import, analysis and plotting of NMR data
+										in <a href="https://www.julialang.org">Julia</a>, a modern high-level, high-performance,
+										dynamic programming language well-suited to scientific computation.
+									</p>
+									<pre><code>julia> using NMRTools, Plots;
+julia> spec = loadnmr("../../exampledata/1D_19F/test.ft1")
+julia> plot(spec)</code></pre>
+									<ul class="actions stacked">
+										<li><a href="https://chriswaudby.github.io/NMRTools.jl/stable/" class="button fit primary">Learn More</a></li>
+										<!-- <li><a href="#" class="button fit">Learn More</a></li> -->
+									</ul>
+								</div>
+							</section>
+
+							<!-- <section class="spotlight" id="other">
+								<div class="image">
+									<img src="images/pic04.jpg" alt="" />
+								</div>
+								<div class="content">
+									<h2>Other software</h2>
+									<p>
+										First day for the Waudby group in the UCL School of Pharmacy. The group intends to develop and apply solution-state NMR methods to study the mechanisms of interactions in diverse molecular systems. We are situated within the UCL School of Pharmacy in the heart of London, where we aim to create a diverse, collaborative and outward-looking research group.
+									</p>
+								</div>
+							</section> -->
+						</section>
+
+					</article>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://www.twitter.com/chris_waudby" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.youtube.com/channel/UCIy84QJPphDhbNgPyIJZ5aA" class="icon brands fa-youtube"><span class="label">YouTube</span></a></li>
+						<li><a href="https://github.com/chriswaudby/" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="contact.html" class="icon solid fa-envelope"><span class="label">Contact</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Waudby Group 2022</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://kit.fontawesome.com/2ea35fb7c9.js" crossorigin="anonymous"></script>
+
+	</body>
+</html>
