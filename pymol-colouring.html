@@ -1,0 +1,278 @@
+<!DOCTYPE HTML>
+<!--
+	Spectral by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>The Waudby Group | Pymol Colouring</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Page Wrapper -->
+			<div id="page-wrapper">
+
+				<!-- Header -->
+					<header id="header">
+						<h1><a href="index.html">The Waudby Group</a></h1>
+						<nav id="nav">
+							<ul>
+								<li class="special">
+									<a href="#menu" class="menuToggle"><span>Menu</span></a>
+									<div id="menu">
+										<ul>
+											<li><a href="index.html"><i class="icon solid fa-home"></i> Home</a></li>
+											<li><a href="index.html#news"><i class="icon solid fa-newspaper"></i> News</a></li>
+											<li><a href="research.html"><i class="icon solid fa-flask"></i> Research</a></li>
+											<li><a href="teaching.html"><i class="icon solid fa-person-chalkboard"></i> Teaching</a></li>
+											<li><a href="publications.html"><i class="icon solid fa-book-open"></i> Publications</a></li>
+											<li><a href="software.html"><i class="icon solid fa-code"></i> Software</a></li>
+											<li><a href="facilities.html"><i class="icon solid fa-magnet"></i> Facilities</a></li>
+											<li><a href="team.html"><i class="icon solid fa-people-group"></i> Team</a></li>
+											<li><a href="contact.html"><i class="icon solid fa-envelope"></i> Contact</a></li>
+											<li><a href="https://osf.io/qbxch/wiki/home/"><i class="icon solid fa-user-lock"></i> Internal</a></li>
+										</ul>
+									</div>
+								</li>
+							</ul>
+						</nav>
+					</header>
+
+				<!-- Main -->
+					<article id="main">
+						<header>
+							<h2>Software</h2>
+							<p>Script generator for colouring atoms in Pymol</p>
+						</header>
+						<section class="wrapper style5">
+							<div class="inner">
+
+<h3>Pymol script generator</h3>
+<p>
+	<span class="image right"><img src="images/pymol-colouring-methyls.png" alt="Example results" style="width:300px;" /></span>
+This tool generates scripts to project numerical data, such as chemical shift perturbations,
+relaxation rates or order parameters, onto pdb structures according to the selected colour
+scale. Users can input data either on a per-residue level (often suited to measurements of amide
+groups) or according to named atoms. Named atoms will be highlighted with a spheres representation.
+</p>
+<p>
+<b>Usage:</b> Open your pdb structure in pymol. Paste numerical data into the form below,
+set minimum/maximum values and select the colour scale. Select 'generate script' then 'copy to clipboard',
+and paste this output into the pymol command window.
+</p>
+
+<div class="row gtr-uniform">
+	<div class="col-6 col-12-small">
+		<input type="radio" id="residueInput" name="namingInput" value="residue" checked>
+		<label for="residueInput">Colour by residue</label>
+	</div>
+	<div class="col-6 col-12-small">
+		<input type="radio" id="atomInput" name="namingInput" value="atom">
+		<label for="atomInput">Colour by named atoms</label>
+	</div>
+	<div class="col-12 col-12-xsmall">
+		<label for="colorSelect">Select color scheme:</label>
+		<select id="colorSelect">
+			<option value="greypurple">Grey - Purple</option>
+			<option value="yellowred">Yellow - Red</option>
+		</select>
+	</div>
+	<div class="col-6 col-12-xsmall">
+		<label for="minInput">Minimum value:</label>
+		<input type="text" id="minInput" value="0" placeholder="Minimum value">
+	</div>
+	<div class="col-6 col-12-xsmall">
+		<label for="maxInput">Maximum value:</label>
+		<input type="text" id="maxInput" value="1" placeholder="Maximum value">
+	</div>
+	<div class="col-6 col-12-xsmall">
+		<input type="checkbox" id="reverseCheck">
+		<label for="reverseCheck">Reverse colors</label>
+	</div>
+	
+	<div class="col-12">
+		<label for="dataInput">Enter data for colouring:</label>
+		<textarea id="dataInput" placeholder="" rows="6"></textarea>
+	</div>
+
+	<div class="col-12">
+		<ul class="actions">
+			<li><input type="button" value="Generate script and copy" class="primary" onclick="copyToClipboard()"/></li>
+			<li><input type="button" value="Generate script only" onclick="generateScript()"/></li>
+		</ul>
+	</div>
+</div>
+
+<p></p>
+<h3>Output</h3>
+
+<pre><code id="output">Generated script will appear here…</code>
+</pre>
+
+<script>
+var dataInput = document.getElementById("dataInput");
+dataInput.placeholder = 'residue_number value\ne.g.\n31 0.5\n32 1.0\n33 0.9';
+
+// Update placeholder on radio change
+document.querySelectorAll('input[name="namingInput"]').forEach(function(radio) {
+  radio.addEventListener('change', function() {
+    if(this.value === 'residue') {
+      dataInput.placeholder = 'residue_number value\ne.g.\n31 0.5\n32 1.0\n33 0.9';
+    } else if(this.value === 'atom') {
+      dataInput.placeholder = 'residue_numer atom_name value\ne.g.\n672 CD1 0.5\n745 CG1 1.0\n745 CG2 0.9'; 
+    }
+  });
+});
+
+// The main generating script
+function generateScript() {
+	var colorbyresidue = document.getElementsByName("namingInput")[0].checked;
+	var colorscheme = document.getElementById("colorSelect").value;
+	var reverse = document.getElementById("reverseCheck").checked;
+	var min = document.getElementById("minInput").value;
+	var max = document.getElementById("maxInput").value;
+	var data = document.getElementById("dataInput").value;
+	
+	var output = ''
+	if(colorbyresidue) {
+		output = colorByResidue(data, min, max, colorscheme, reverse)
+	} else {
+		output = colorByAtom(data, min, max, colorscheme, reverse)
+	}
+
+	document.getElementById("output").textContent = output;
+}
+
+function colorByResidue(data, min, max, colorscheme, reverse) {
+	var lines = data.split(/\r?\n/);
+	var output = 'hide\nshow cartoon\ncolor grey80\n';
+
+	for(var i = 0; i < lines.length; i++) {
+		var line = lines[i];
+
+		var columns = line.split(/\s+/);
+
+		var resi = parseInt(columns[0]);
+		var x = parseFloat(columns[1]);
+		
+		phi = (x-min)/(max-min)
+		if(isNaN(phi)) {
+			continue;
+		}
+        if(phi<0) {
+            phi = 0;
+		} else if(phi>1) {
+            phi = 1;
+		}
+
+		rgb = getColor(phi, colorscheme, reverse)
+
+		output += `set_color res${resi}, [${rgb[0]}, ${rgb[1]}, ${rgb[2]}]\n`;
+		output += `color res${resi}, resi ${resi}\n`;
+	}
+
+	return output
+}
+
+function colorByAtom(data, min, max, colorscheme, reverse) {
+	var lines = data.split(/\r?\n/);
+	var output = 'hide\nshow cartoon\ncolor grey80\n';
+
+	for(var i = 0; i < lines.length; i++) {
+		var line = lines[i];
+
+		var columns = line.split(/\s+/);
+
+		var resi = parseInt(columns[0]);
+		var atom = columns[1]
+		var x = parseFloat(columns[2]);
+		
+		phi = (x-min)/(max-min)
+		if(isNaN(phi)) {
+			continue;
+		}
+        if(phi<0) {
+            phi = 0;
+		} else if(phi>1) {
+            phi = 1;
+		}
+
+		rgb = getColor(phi, colorscheme, reverse)
+
+		output += `set_color res${resi}, [${rgb[0]}, ${rgb[1]}, ${rgb[2]}]\n`;
+		output += `show sphere, resi ${resi} and name ${atom}\n`;
+		output += `color grey80, resi ${resi} and name ${atom}\n`;
+		output += `color res${resi}, resi ${resi} and name ${atom}\n`;
+	}
+
+	return output
+}
+
+function getColor(phi, colorscheme, reverse) {
+	let r1, g1, b1, r2, g2, b2;
+
+	if(colorscheme === 'yellowred') {
+		r1 = 1; g1 = 1; b1 = 0;
+  		r2 = 1; g2 = 0; b2 = 0;
+	} else if(colorscheme === 'greypurple') {
+		r1 = 0.8; g1 = 0.8; b1 = 0.8;
+  		r2 = 0.7; g2 = 0; b2 = 0.9;
+	}
+
+	if(reverse) {
+		phi = 1 - phi
+	}
+
+	let red = (1 - phi) * r1 + phi * r2;
+	let green = (1 - phi) * g1 + phi * g2;
+	let blue = (1 - phi) * b1 + phi * b2;
+
+	return [red, green, blue]
+}
+
+function copyToClipboard() {
+	generateScript()
+
+	var text = document.getElementById("output").textContent;
+	navigator.clipboard.writeText(text);
+}
+</script>
+
+							</div>
+						</section>
+					</article>
+
+				<!-- Footer -->
+				<footer id="footer">
+					<ul class="icons">
+						<li><a rel="me" href="https://mstdn.science/@chriswaudby" class="icon brands fa-mastodon"><span class="label">Mastodon</span></a></li>
+							<li><a href="https://www.twitter.com/chris_waudby" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="https://www.youtube.com/channel/UCIy84QJPphDhbNgPyIJZ5aA" class="icon brands fa-youtube"><span class="label">YouTube</span></a></li>
+						<li><a href="https://github.com/waudbygroup/" class="icon brands fa-github"><span class="label">Github</span></a></li>
+						<li><a href="contact.html" class="icon solid fa-envelope"><span class="label">Contact</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; Waudby Group 2023</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+			<script src="https://kit.fontawesome.com/2ea35fb7c9.js" crossorigin="anonymous"></script>
+
+	</body>
+</html>
