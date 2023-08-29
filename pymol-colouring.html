@@ -286,11 +286,11 @@ function getColor(phi, colorscheme, reverse) {
 	} else {
 		let rgb
 		if(colorscheme === 'viridis') {
-			rgb = d3.rgb(d3.interpolateViridis(1-phi))
+			rgb = d3.rgb(d3.interpolateViridis(phi))
 		} else if(colorscheme === 'plasma') {
-			rgb = d3.rgb(d3.interpolatePlasma(1-phi))
+			rgb = d3.rgb(d3.interpolatePlasma(phi))
 		} else if(colorscheme === 'magma') {
-			rgb = d3.rgb(d3.interpolateMagma(1-phi))
+			rgb = d3.rgb(d3.interpolateMagma(phi))
 		}
 		red = rgb.r
 		green = rgb.g
