@@ -250,10 +250,10 @@ function colorByAtom(data, min, max, colorscheme, reverse) {
 
 		rgb = getColor(phi, colorscheme, reverse)
 
-		output += `set_color res${resi}, [${rgb[0]}, ${rgb[1]}, ${rgb[2]}]\n`;
+		output += `set_color atom${resi}${atom}, [${rgb[0]}, ${rgb[1]}, ${rgb[2]}]\n`;
 		output += `show sphere, resi ${resi} and name ${atom}\n`;
 		output += `color grey80, resi ${resi} and name ${atom}\n`;
-		output += `color res${resi}, resi ${resi} and name ${atom}\n`;
+		output += `color atom${resi}${atom}, resi ${resi} and name ${atom}\n`;
 	}
 
 	return output
