@@ -10,6 +10,15 @@
 	<title>The Waudby Group | Software</title>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description"
+		content="Software from the Waudby Group: NMR TITAN for 2D lineshape analysis, AktaPrime.jl for FPLC acquisition, the NMR Sample Manager, NMRTools.jl, NMRAnalysis.jl, NMRScreen.jl, NMRLitmus and Bruker pulse programs." />
+	<link rel="canonical" href="https://waudbylab.org/software.html" />
+	<meta property="og:type" content="website" />
+	<meta property="og:title" content="The Waudby Group | Software" />
+	<meta property="og:description"
+		content="NMR TITAN, AktaPrime.jl, NMR Sample Manager, NMRTools.jl, NMRAnalysis.jl, NMRScreen.jl, NMRLitmus and pulse programs from the Waudby Group." />
+	<meta property="og:url" content="https://waudbylab.org/software.html" />
+	<meta property="og:image" content="https://waudbylab.org/images/nmrscreen.png" />
 	<link rel="stylesheet" href="assets/css/main.css" />
 	<noscript>
 		<link rel="stylesheet" href="assets/css/noscript.css" />
@@ -58,13 +67,15 @@
 				<h2>Software</h2>
 				<ul class="actions special">
 					<li><a href="#TITAN" class="button">NMR TITAN</a></li>
+					<li><a href="#AktaPrime" class="button">AktaPrime.jl</a></li>
+					<li><a href="#topspin-samples" class="button">NMR Sample Manager</a></li>
 					<li><a href="#pp" class="button">Pulse programs</a></li>
-					<li><a href="#topspin-samples" class="button">Topspin Sample Manager</a></li>
 				</ul>
 				<ul class="actions special">
 					<li><a href="#NMRTools" class="button">NMRTools.jl</a></li>
 					<li><a href="#NMRAnalysis" class="button">NMRAnalysis.jl</a></li>
 					<li><a href="#NMRScreen" class="button">NMRScreen.jl</a></li>
+					<li><a href="#NMRLitmus" class="button">NMRLitmus</a></li>
 					<li><a href="pymol-colouring.html" class="button">Pymol Colouring</a></li>
 				</ul>
 			</header>
@@ -97,6 +108,30 @@
 					</div>
 				</section>
 
+				<section class="spotlight" id="AktaPrime">
+					<div class="image">
+						<img src="images/aktaprime.png" alt="AktaPrime.jl acquisition and plotting window" />
+					</div>
+					<div class="content">
+						<h2>AktaPrime.jl</h2>
+						<p>
+							AktaPrime.jl is a free, open-source Julia application for logging and visualising
+							chromatography data from ÄKTAprime plus FPLC instruments, providing a modern replacement
+							for Cytiva's discontinued PrimeView control software. It plots UV, conductivity, pH, %B
+							and pressure traces live during a run, alongside a diagram of the flow path, and logs
+							everything to CSV for later analysis.
+						</p>
+						<p>
+							AktaPrime.jl is an independent, unofficial project and is not affiliated with, authorised,
+							endorsed or supported by Cytiva.
+						</p>
+						<ul class="actions stacked">
+							<li><a href="https://waudbylab.org/AktaPrime.jl/" class="button fit primary">Learn More</a>
+							</li>
+						</ul>
+					</div>
+				</section>
+
 				<section class="spotlight" id="pp">
 					<div class="image">
 						<img src="images/pp.png" alt="" />
@@ -120,17 +155,26 @@
 
 				<section class="spotlight" id="topspin-samples">
 					<div class="image">
-						<img src="images/topspin-samples.png" alt="" />
+						<img src="images/topspin-samples.png" alt="NMR Sample Manager catalogue view" />
 					</div>
 					<div class="content">
-						<h2>Topspin Sample Manager</h2>
+						<h2>NMR Sample Manager</h2>
 						<p>
-							A lightweight sample metadata management system that runs natively within Bruker TopSpin,
-							helping you track what's in your NMR tube alongside your spectral data.
+							A lightweight, open metadata system for recording what's in your NMR tube &mdash; sample
+							composition, buffer conditions, isotopic labelling, tube type and laboratory references
+							&mdash; stored as simple JSON files alongside your experiment data, so it's searchable,
+							portable and machine-readable.
+						</p>
+						<p>
+							Available as a plugin that runs natively within Bruker TopSpin (v3+), and as a
+							standalone browser-based tool that needs no installation, both built on a shared open
+							JSON schema.
 						</p>
 						<ul class="actions stacked">
-							<li><a href="https://waudbylab.org/topspin-samples/" class="button fit primary">Learn
-									More</a></li>
+							<li><a href="https://waudbylab.org/topspin-samples/" class="button fit primary">TopSpin
+									plugin</a></li>
+							<li><a href="https://waudbylab.org/nmr-samples/" class="button fit primary">Browser-based
+									tool</a></li>
 						</ul>
 					</div>
 				</section>
@@ -199,6 +243,28 @@ julia> plot(spec)</code></pre>
 						</p>
 						<ul class="actions stacked">
 							<li><a href="https://waudbylab.org/NMRScreen.jl/" class="button fit primary">Learn More</a>
+							</li>
+						</ul>
+					</div>
+				</section>
+
+				<section class="spotlight" id="NMRLitmus">
+					<div class="image">
+						<img src="images/nmrlitmus.png" alt="NMRLitmus fit of indicator chemical shifts against pH" />
+					</div>
+					<div class="content">
+						<h2>NMRLitmus</h2>
+						<p>
+							NMRLitmus estimates sample pH from the chemical shifts of NMR-active indicator
+							resonances. Multiple indicators and nuclei can be combined within a single fit, with
+							observed peaks assigned to predicted resonances automatically.
+						</p>
+						<p>
+							Temperature, ionic strength and chemical-shift referencing errors can be refined
+							alongside pH, with uncertainties reported for every fitted parameter.
+						</p>
+						<ul class="actions stacked">
+							<li><a href="https://waudbylab.org/NMRLitmus/" class="button fit primary">Learn More</a>
 							</li>
 						</ul>
 					</div>
