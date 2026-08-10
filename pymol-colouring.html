@@ -127,6 +127,28 @@
 							[1, 0.94, 0.88] – [1, 0.39, 0]
 						</li>
 					</ul>
+					<p>
+						Diverging colour scales are useful for signed quantities, such as changes in chemical shifts or
+						relaxation rates, where the sign as well as the magnitude of the change is of interest. Set the
+						minimum and maximum values symmetrically about zero (e.g. −1 and +1) so that the neutral
+						midpoint of the scale corresponds to zero.
+					</p>
+					<ul>
+						<li>
+							<b>Blue – White – Red:</b>
+							<div
+								style="display:inline-block; width:200px; height:20px; background:linear-gradient(to right, rgb(5,48,97), rgb(67,147,195), rgb(247,247,247), rgb(214,96,77), rgb(103,0,31))">
+							</div>
+							[D3js]
+						</li>
+						<li>
+							<b>Brown – White – Teal:</b>
+							<div
+								style="display:inline-block; width:200px; height:20px; background:linear-gradient(to right, rgb(84,48,5), rgb(216,179,101), rgb(245,245,245), rgb(90,180,172), rgb(0,60,48))">
+							</div>
+							[D3js]
+						</li>
+					</ul>
 
 					<h3>Script generator</h3>
 
@@ -148,6 +170,8 @@
 								<option value="yellowred">Yellow - Red</option>
 								<option value="greypurple">Grey - Purple</option>
 								<option value="oranges">Oranges</option>
+								<option value="bluewhitered">Blue - White - Red (diverging)</option>
+								<option value="brownwhiteteal">Brown - White - Teal (diverging)</option>
 							</select>
 						</div>
 						<div class="col-6 col-12-xsmall">
@@ -315,13 +339,21 @@
 									rgb = d3.rgb(d3.interpolatePlasma(phi))
 								} else if (colorscheme === 'magma') {
 									rgb = d3.rgb(d3.interpolateMagma(phi))
+								} else if (colorscheme === 'bluewhitered') {
+									// RdBu runs red -> blue, so invert to put blue at the minimum
+									rgb = d3.rgb(d3.interpolateRdBu(1 - phi))
+								} else if (colorscheme === 'brownwhiteteal') {
+									rgb = d3.rgb(d3.interpolateBrBG(phi))
 								}
-								red = rgb.r
-								green = rgb.g
-								blue = rgb.b
+								// d3 returns 0-255 components; rescale to the 0-1 range used throughout
+								red = rgb.r / 255
+								green = rgb.g / 255
+								blue = rgb.b / 255
 							}
 
-							return [red, green, blue]
+							return [red, green, blue].map(function (c) {
+								return parseFloat(c.toFixed(3))
+							})
 						}
 
 						function copyToClipboard() {
